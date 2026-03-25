@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Container, Dropdown, ButtonGroup, DropdownButton } from 'react-bootstrap';
-import { logoutUser } from '../../services/LoginService';
+import { logoutUser } from '../../Services/LoginService';
 
 const AdminMenu = () => {
-    let navigate = useNavigate();
+
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         logoutUser().then(() => {
@@ -15,101 +15,84 @@ const AdminMenu = () => {
     };
 
     return (
-        <div className="min-vh-100 bg-light">
-            {/* Header Section */}
-            <div className="bg-primary text-white py-4 shadow-sm">
-                <Container>
-                    <h1 className="text-center fw-bold mb-2">
-                        <span className="fs-1 me-2">📦</span>
-                        Inventory Admin Panel
+
+        <div className="w-full min-h-screen bg-slate-900 text-white">
+
+            {/* Header */}
+            <div className="bg-slate-800 shadow-lg">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between">
+                    <h1 className="text-xl font-bold">
+                        📦 Inventory Admin Dashboard
                     </h1>
-                    <p className="text-center mb-0 opacity-75">Manage your inventory with ease</p>
-                </Container>
+
+                    <button
+                        onClick={handleLogout}
+                        className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition"
+                    >
+                        Logout
+                    </button>
+                </div>
             </div>
 
-            {/* Navigation Bar */}
-            <Navbar expand="lg" bg="dark" variant="dark" className="shadow-sm">
-                <Container>
-                    <Navbar.Brand href="#" className="fw-bold">Dashboard</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="admin-navbar-nav" />
-                    <Navbar.Collapse id="admin-navbar-nav">
-                        <Nav className="ms-auto">
+            {/* Main Menu */}
+            <div className="max-w-6xl mx-auto mt-10 grid grid-cols-2 gap-6">
 
-                            {/* SKU Dropdown */}
-                            <NavDropdown
-                                title={<span className="fw-semibold">📊 SKU</span>}
-                                id="sku-dropdown"
-                                className="mx-1"
-                            >
-                                <NavDropdown.Item href="#sku-list" className="py-2">
-                                    <span className="me-2">📋</span> SKU List
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#sku-add" className="py-2">
-                                    <span className="me-2">➕</span> Add New SKU
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                {/* SKU */}
+                <button
+                    onClick={() => navigate("/sku-entry")}
+                    className="bg-blue-500 hover:bg-blue-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    ➕ Add SKU
+                </button>
 
-                            {/* Product Dropdown */}
-                            <NavDropdown
-                                title={<span className="fw-semibold">📦 Product</span>}
-                                id="product-dropdown"
-                                className="mx-1"
-                            >
-                                <NavDropdown.Item href="#product-add" className="py-2">
-                                    <span className="me-2">➕</span> Add Product
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#product-list" className="py-2">
-                                    <span className="me-2">📋</span> Product List
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <DropdownButton
-                                    as={ButtonGroup}
-                                    key="end"
-                                    id="dropdown-button-drop-end"
-                                    drop="end"
-                                    variant="light"
-                                    title="📈 Product Analysis"
-                                    className="w-100 border-0"
-                                >
-                                    <Dropdown.Item href="#all-products-analysis" className="py-2">
-                                        All Products Analysis
-                                    </Dropdown.Item>
-                                    <Dropdown.Item href="#single-product-analysis" className="py-2">
-                                        Single Product Demand
-                                    </Dropdown.Item>
-                                </DropdownButton>
-                            </NavDropdown>
+                <button
+                    onClick={() => navigate("/sku-repo")}
+                    className="bg-green-500 hover:bg-green-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📋 View SKU List
+                </button>
 
-                            {/* Transaction Report Dropdown */}
-                            <NavDropdown
-                                title={<span className="fw-semibold">📄 Reports</span>}
-                                id="transaction-dropdown"
-                                className="mx-1"
-                            >
-                                <NavDropdown.Item href="#out-transaction" className="py-2">
-                                    <span className="me-2">📤</span> Out Transactions
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#in-transaction" className="py-2">
-                                    <span className="me-2">📥</span> In Transactions
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                {/* Product */}
+                <button
+                    onClick={() => navigate("/product-entry")}
+                    className="bg-purple-500 hover:bg-purple-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📦 Add Product
+                </button>
 
-                            {/* User Details Link */}
-                            <Nav.Link href="#user-details" className="fw-semibold mx-1">
-                                👤 User Details
-                            </Nav.Link>
+                <button
+                    onClick={() => navigate("/product-repo")}
+                    className="bg-yellow-500 hover:bg-yellow-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📋 View Product List
+                </button>
 
-                            {/* Logout Button */}
-                            <Nav.Link onClick={handleLogout} className="mx-1">
-                                <span className="btn btn-danger btn-sm fw-semibold px-3">
-                                    🚪 Logout
-                                </span>
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
+                {/* 🔥 NEW: Transaction Features */}
+                <button
+                    onClick={() => navigate("/product-repo")}
+                    className="bg-indigo-500 hover:bg-indigo-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    🔄 Stock Entry (IN / OUT)
+                </button>
+
+                <button
+                    onClick={() => navigate("/transaction-report/IN")}
+                    className="bg-teal-500 hover:bg-teal-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📊 View Purchase Transactions
+                </button>
+
+                <button
+                    onClick={() => navigate("/transaction-report/OUT")}
+                    className="bg-orange-500 hover:bg-orange-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📊 View Issue Transactions
+                </button>
+
+            </div>
+
         </div>
+
     );
 };
 

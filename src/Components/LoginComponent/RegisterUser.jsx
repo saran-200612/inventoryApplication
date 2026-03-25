@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { registerNewUser } from "../../services/LoginService";
+
 import '../../DisplayView.css';
+import {registerNewUser} from '../../Services/LoginService';
 
 const RegisterUser = () => {
     let navigate=useNavigate();

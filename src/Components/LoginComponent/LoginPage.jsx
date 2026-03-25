@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateUser } from "../../services/LoginService";
-
+import { validateUser } from '../../Services/LoginService';
 
 const LoginPage = () => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [loginData, setLoginData] = useState({
         username: "",
@@ -29,22 +28,15 @@ const LoginPage = () => {
                 else
                     setFlag(false);
             })
-            .catch(() => {
-                setFlag(false);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+            .catch(() => setFlag(false))
+            .finally(() => setIsLoading(false));
     };
 
     const onChangeHandler = (event) => {
-        event.persist();
         setFlag(true);
-        const name = event.target.name;
-        const value = event.target.value;
+        const { name, value } = event.target;
         setLoginData(values => ({ ...values, [name]: value }));
 
-        // Clear error for the field being edited
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: '' }));
         }
@@ -66,9 +58,7 @@ const LoginPage = () => {
         }
 
         setErrors(tempErrors);
-        if (isValid) {
-            validateLogin(event);
-        }
+        if (isValid) validateLogin(event);
     };
 
     const registerNewUser = (e) => {
@@ -77,134 +67,97 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-vh-100 d-flex align-items-center bg-primary bg-gradient">
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-700 via-purple-700 to-blue-800 px-4 relative overflow-hidden">
 
-                        {/* Login Card */}
-                        <div className="card shadow-lg border-0 rounded-4">
-                            <div className="card-body p-4 p-sm-5">
+            {/* Floating Glow */}
+            <div className="absolute w-72 h-72 bg-pink-500 rounded-full blur-3xl opacity-30 top-10 left-10"></div>
+            <div className="absolute w-72 h-72 bg-blue-400 rounded-full blur-3xl opacity-30 bottom-10 right-10"></div>
 
-                                {/* Header */}
-                                <div className="text-center mb-4">
-                                    <div className="bg-primary bg-gradient rounded-4 d-inline-flex p-3 mb-3 shadow">
-                                        <span style={{ fontSize: '2.5rem' }}>🔐</span>
-                                    </div>
-                                    <h2 className="fw-bold mb-2">Welcome Back</h2>
-                                    <p className="text-muted mb-0">Sign in to access your inventory dashboard</p>
-                                </div>
+            <div className="w-full max-w-md backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl shadow-2xl p-8 relative z-10">
 
-                                {/* Login Form */}
-                                <form onSubmit={handleValidation}>
-
-                                    {/* Username Field */}
-                                    <div className="mb-3">
-                                        <label htmlFor="username" className="form-label fw-semibold">
-                                            <span className="me-2">👤</span>
-                                            Username
-                                        </label>
-                                        <input
-                                            id="username"
-                                            type="text"
-                                            placeholder="Enter your username"
-                                            name="username"
-                                            className={`form-control form-control-lg ${errors.username ? 'is-invalid' : ''}`}
-                                            value={loginData.username}
-                                            onChange={onChangeHandler}
-                                            autoComplete="username"
-                                        />
-                                        {errors.username && (
-                                            <div className="invalid-feedback d-flex align-items-center">
-                                                <span className="me-1">⚠️</span>
-                                                {errors.username}
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Password Field */}
-                                    <div className="mb-3">
-                                        <label htmlFor="password" className="form-label fw-semibold">
-                                            <span className="me-2">🔒</span>
-                                            Password
-                                        </label>
-                                        <input
-                                            id="password"
-                                            type="password"
-                                            placeholder="Enter your password"
-                                            name="password"
-                                            className={`form-control form-control-lg ${errors.password ? 'is-invalid' : ''}`}
-                                            value={loginData.password}
-                                            onChange={onChangeHandler}
-                                            autoComplete="current-password"
-                                        />
-                                        {errors.password && (
-                                            <div className="invalid-feedback d-flex align-items-center">
-                                                <span className="me-1">⚠️</span>
-                                                {errors.password}
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Invalid Credentials Error */}
-                                    {!flag && (
-                                        <div className="alert alert-danger d-flex align-items-center" role="alert">
-                                            <span className="me-2">❌</span>
-                                            <span>Invalid username or password. Please try again.</span>
-                                        </div>
-                                    )}
-
-                                    {/* Submit Button */}
-                                    <div className="d-grid gap-2 mb-3">
-                                        <button
-                                            type="submit"
-                                            className="btn btn-primary btn-lg fw-semibold"
-                                            disabled={isLoading}
-                                        >
-                                            {isLoading ? (
-                                                <>
-                                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                                    Signing in...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    Sign In
-                                                    <span className="ms-2">→</span>
-                                                </>
-                                            )}
-                                        </button>
-                                    </div>
-                                </form>
-
-                                {/* Divider */}
-                                <div className="d-flex align-items-center my-4">
-                                    <hr className="flex-grow-1" />
-                                    <span className="px-3 text-muted small">or</span>
-                                    <hr className="flex-grow-1" />
-                                </div>
-
-                                {/* Register Section */}
-                                <div className="text-center">
-                                    <p className="text-muted mb-3">Don't have an account?</p>
-                                    <div className="d-grid">
-                                        <button
-                                            onClick={registerNewUser}
-                                            className="btn btn-outline-primary btn-lg fw-semibold"
-                                        >
-                                            <span className="me-2">✨</span>
-                                            Create New Account
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
+                <div className="text-center mb-8">
+                    <div className="text-5xl mb-3 drop-shadow-lg">🔐</div>
+                    <h2 className="text-2xl font-bold text-white tracking-wide">
+                        Inventory System
+                    </h2>
+                    <p className="text-white/80 text-sm mt-2">
+                        Secure login to continue
+                    </p>
                 </div>
+
+                <form onSubmit={handleValidation} className="space-y-5">
+
+                    {/* Username */}
+                    <div>
+                        <label className="block text-sm font-medium text-white mb-1">
+                            Username
+                        </label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={loginData.username}
+                            onChange={onChangeHandler}
+                            className={`w-full px-4 py-2 rounded-lg bg-white/90 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-300 ${
+                                errors.username ? 'border-2 border-red-500' : ''
+                            }`}
+                            placeholder="Enter your username"
+                        />
+                        {errors.username && (
+                            <p className="text-red-300 text-sm mt-1">{errors.username}</p>
+                        )}
+                    </div>
+
+                    {/* Password */}
+                    <div>
+                        <label className="block text-sm font-medium text-white mb-1">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={loginData.password}
+                            onChange={onChangeHandler}
+                            className={`w-full px-4 py-2 rounded-lg bg-white/90 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all duration-300 ${
+                                errors.password ? 'border-2 border-red-500' : ''
+                            }`}
+                            placeholder="Enter your password"
+                        />
+                        {errors.password && (
+                            <p className="text-red-300 text-sm mt-1">{errors.password}</p>
+                        )}
+                    </div>
+
+                    {/* Invalid Login */}
+                    {!flag && (
+                        <div className="bg-red-500/20 text-red-200 text-sm p-3 rounded-lg text-center border border-red-400">
+                            Invalid username or password
+                        </div>
+                    )}
+
+                    {/* Button */}
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold py-2 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    >
+                        {isLoading ? "Signing In..." : "Sign In"}
+                    </button>
+
+                </form>
+
+                <div className="mt-6 text-center text-sm text-white/90">
+                    Don’t have an account?{" "}
+                    <button
+                        onClick={registerNewUser}
+                        className="text-pink-300 font-semibold hover:underline"
+                    >
+                        Register
+                    </button>
+                </div>
+
             </div>
         </div>
     );
-}
+};
 
 export default LoginPage;

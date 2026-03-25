@@ -1,38 +1,38 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app-background {
   min-height: 100vh;
+
+  background: linear-gradient(
+      rgba(15,23,42,0.85),
+      rgba(15,23,42,0.85)
+    ),
+    url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d");
+
+  background-size: cover;
+  background-position: center;
+
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+/* animation */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(25px);
   }
+
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.page-card {
+  animation: fadeIn 0.6s ease;
 }

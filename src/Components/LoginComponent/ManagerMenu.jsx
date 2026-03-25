@@ -5,8 +5,9 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 //import DropdownButton from 'react-bootstrap/DropdownButton';
-import {logoutUser} from '../../services/LoginService';
+
 import {useNavigate} from 'react-router-dom';
+import {logoutUser} from '../../Services/LoginService';
 
 const ManagerMenu = () => {
     let navigate=useNavigate();
@@ -27,7 +28,7 @@ return (
       <Navbar.Collapse id="basic-navbar-nav">
        <Nav className="me-auto">
           <NavDropdown title="SKU" id="collasible-nav-dropdown"><b>SKU</b>
-           <NavDropdown.Item href="">SKU List</NavDropdown.Item>
+           <NavDropdown.Item href="/sku-list">SKU List</NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title="Product" id="collasible-nav-dropdown"><b>Product</b>
           <NavDropdown.Item href="">Product List</NavDropdown.Item>

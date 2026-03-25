@@ -1,38 +1,68 @@
 import React from "react";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
-//import DropdownButton from 'react-bootstrap/DropdownButton';
-import {logoutUser} from '../../services/LoginService';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../Services/LoginService';
 
 const VendorMenu = () => {
-    let navigate=useNavigate();
-  const handleLogout = () => {
-  logoutUser().then(() => {
-          localStorage.clear();
-          sessionStorage.clear();
-          navigate('/');
-     })
-  };
-return (
-      <div className=".container">
-      <br/>
-        <div  align="center" style={{backgroundColor:'yellow'}}>
-        <h1 className = "text-center" style={{color:'blue'}}><u><i>Inventory Vendor Menu</i></u></h1>
+
+    let navigate = useNavigate();
+
+    const handleLogout = () => {
+        logoutUser().then(() => {
+            localStorage.clear();
+            sessionStorage.clear();
+            navigate('/');
+        });
+    };
+
+    return (
+        <div className="min-h-screen bg-slate-900 text-white">
+
+            <div className="bg-slate-800 shadow-lg">
+                <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between">
+                    <h1 className="text-xl font-bold">
+                        📦 Inventory Vendor Dashboard
+                    </h1>
+
+                    <button
+                        onClick={handleLogout}
+                        className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg"
+                    >
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div className="max-w-5xl mx-auto mt-10 grid grid-cols-2 gap-6">
+
+                <button className="bg-blue-500 hover:bg-blue-600 p-6 rounded-xl shadow-lg text-lg">
+                    👤 Show User Details
+                </button>
+
+                <button
+                    onClick={() => navigate("/product-repo")}
+                    className="bg-indigo-500 hover:bg-indigo-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    🔄 Stock Entry (IN / OUT)
+                </button>
+
+                <button
+                    onClick={() => navigate("/transaction-report/IN")}
+                    className="bg-teal-500 hover:bg-teal-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📊 View Purchase Transactions
+                </button>
+
+                <button
+                    onClick={() => navigate("/transaction-report/OUT")}
+                    className="bg-orange-500 hover:bg-orange-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📊 View Issue Transactions
+                </button>
+
+            </div>
+
         </div>
-        <Navbar expand="lg" bg="warning">
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-         <Nav.Link href=""><b>Show User Details</b></Nav.Link>
-         <Nav.Link onClick={handleLogout}><b>Logout</b></Nav.Link>
-         </Nav>
-       </Navbar.Collapse>
-  </Navbar>
- </div>
-  );
- 
-}
+    );
+};
+
 export default VendorMenu;
