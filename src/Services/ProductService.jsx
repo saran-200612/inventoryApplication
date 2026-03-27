@@ -22,6 +22,7 @@ export const getProductById = (id) => {
     });
 };
 
+// ✅ KEEP ONLY THIS VERSION
 export const editProductPrice = (product) => {
     return axios.put(PROD_URL, product, {
         withCredentials: true
@@ -41,9 +42,9 @@ export const getProductByVendor = (id) => {
 };
 
 export const deleteAProduct = (id) => {
-  return axios.delete(`${PROD_URL}/${id}`, {
-    withCredentials: true
-  });
+    return axios.delete(`${PROD_URL}/${id}`, {
+        withCredentials: true
+    });
 };
 
 export const editProductStock = (product) => {

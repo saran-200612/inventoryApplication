@@ -16,6 +16,7 @@ import SKUEdit from './Components/SKUComponent/SKUEdit';
 import ProductEntry from './Components/ProductComponent/ProductEntry';
 import ProductReport from './Components/ProductComponent/ProductReport';
 import ProductPriceEdit from './Components/ProductComponent/ProductPriceEdit';
+import ProductPieAnalysis from './Components/AnalysisComponent/ProductPieAnalysis';
 
 import TransactionReport from './Components/ProductComponent/TransactionReport';
 
@@ -23,7 +24,6 @@ function App() {
 
   return (
     <BrowserRouter>
-
       <div className="app-background">
 
         <Routes>
@@ -46,12 +46,13 @@ function App() {
           <Route path="/edit-price/:pid" element={<ProductPriceEdit />} />
 
           {/* ✅ FIXED */}
-          <Route path="/transaction-report/:pid" element={<TransactionReport />} />
+          <Route path="/transaction-report/:type" element={<TransactionReport />} />
+
+          <Route path="/product-pie" element={<ProductPieAnalysis />} />
 
         </Routes>
 
       </div>
-
     </BrowserRouter>
   );
 }

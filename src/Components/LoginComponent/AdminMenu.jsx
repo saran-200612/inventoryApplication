@@ -88,6 +88,13 @@ const AdminMenu = () => {
                 >
                     📊 View Issue Transactions
                 </button>
+                    {/* Analysis */}
+                <button
+                    onClick={() => navigate("/product-pie")}
+                    className="bg-cyan-500 hover:bg-cyan-600 p-6 rounded-xl shadow-lg text-lg"
+                >
+                    📈 Product Sales Analysis
+                </button>
 
             </div>
 
