@@ -21,11 +21,9 @@ import ProductPieAnalysis from './Components/AnalysisComponent/ProductPieAnalysi
 import TransactionReport from './Components/ProductComponent/TransactionReport';
 
 function App() {
-
   return (
     <BrowserRouter>
       <div className="app-background">
-
         <Routes>
 
           <Route path="/" element={<LoginPage />} />
@@ -35,7 +33,8 @@ function App() {
           <Route path="/manager-menu" element={<ManagerMenu />} />
           <Route path="/vendor-menu" element={<VendorMenu />} />
 
-          <Route path="/stock-edit/:pid/:no" element={<ProductStockEdit />} />
+          {/* ✅ FIXED: was /stock-edit/:pid/:no — now matches ProductReport links */}
+          <Route path="/edit-stock/:pid/:no" element={<ProductStockEdit />} />
 
           <Route path="/sku-entry" element={<SKUEntry />} />
           <Route path="/sku-repo" element={<SKUReport />} />
@@ -45,13 +44,12 @@ function App() {
           <Route path="/product-repo" element={<ProductReport />} />
           <Route path="/edit-price/:pid" element={<ProductPriceEdit />} />
 
-          {/* ✅ FIXED */}
-          <Route path="/transaction-report/:type" element={<TransactionReport />} />
+          {/* ✅ FIXED: param name is :type to match param.pid usage in TransactionReport */}
+          <Route path="/transaction-report/:pid" element={<TransactionReport />} />
 
           <Route path="/product-pie" element={<ProductPieAnalysis />} />
 
         </Routes>
-
       </div>
     </BrowserRouter>
   );

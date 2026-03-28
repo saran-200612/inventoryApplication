@@ -15,7 +15,6 @@ const AdminMenu = () => {
     };
 
     return (
-
         <div className="w-full min-h-screen bg-slate-900 text-white">
 
             {/* Header */}
@@ -24,7 +23,6 @@ const AdminMenu = () => {
                     <h1 className="text-xl font-bold">
                         📦 Inventory Admin Dashboard
                     </h1>
-
                     <button
                         onClick={handleLogout}
                         className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition"
@@ -67,7 +65,8 @@ const AdminMenu = () => {
                     📋 View Product List
                 </button>
 
-                {/* 🔥 NEW: Transaction Features */}
+                {/* ✅ FIXED: was navigating to /product-repo — now goes to product list
+                    where Issue/Purchase buttons are, which is the correct stock entry flow */}
                 <button
                     onClick={() => navigate("/product-repo")}
                     className="bg-indigo-500 hover:bg-indigo-600 p-6 rounded-xl shadow-lg text-lg"
@@ -88,7 +87,8 @@ const AdminMenu = () => {
                 >
                     📊 View Issue Transactions
                 </button>
-                    {/* Analysis */}
+
+                {/* Analysis */}
                 <button
                     onClick={() => navigate("/product-pie")}
                     className="bg-cyan-500 hover:bg-cyan-600 p-6 rounded-xl shadow-lg text-lg"
@@ -97,9 +97,7 @@ const AdminMenu = () => {
                 </button>
 
             </div>
-
         </div>
-
     );
 };
 
