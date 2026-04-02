@@ -1,0 +1,72 @@
+================================================================================
+          PRESENTATION SCRIPT: SMARTSHELFX MODERN INVENTORY PORTAL
+================================================================================
+
+1. INTRODUCTION & LOGIN (THE ENTRY PORTAL)
+------------------------------------------
+"Welcome to the all-new SmartShelfX Inventory Management Portal. As you can see,
+we've completely overhauled the UI with a premium dark glassmorphism theme. 
+
+The Login page features a futuristic warehouse backdrop with a blurred, 
+semi-transparent authentication card. Users can seamlessly log in with their
+assigned roles—Admin, Manager, or Vendor. 
+
+If you're a new user, the Registration page has been redesigned with a 
+responsive two-column layout to make onboarding fast and clean."
+
+
+2. ADMIN WORKFLOW (CENTRAL CONTROL)
+-----------------------------------
+"Once logged in as an Admin, the dashboard gives you full control. 
+Key functionalities include:
+
+- SKU MANAGEMENT: Admins can define the foundation of the inventory. In the 
+  'New SKU Entry' and 'Edit SKU' screens, we've implemented the synchronized 
+  dark UI. You can create SKU IDs, categorize them (like Food, Apparel, 
+  Electronics), and add detailed descriptions.
+
+- PRODUCT SALES ANALYSIS: For a top-level view, the 'Product Sales' section 
+  now features a high-visibility Pie Chart. We've enlarged the chart and 
+  fixed the legend overlaps to ensure every product's sales distribution is 
+  crystal clear at a glance."
+
+
+3. MANAGER WORKFLOW (OPERATIONAL EFFICIENCY)
+--------------------------------------------
+"Managers are the heart of the daily operations. Their workflow includes:
+
+- STOCK MANAGEMENT: Adding new products into the system using the SKU 
+  repository defined by the Admin.
+
+- BUY & ISSUE TRANSACTIONS: In the 'Edit Stock' screen, Managers can buy 
+  fresh stock or issue existing products. One major update here is the 
+  DYNAMIC VENDOR DROPDOWN. When buying stock (Flag 1), the system now 
+  fetches and displays the list of available Vendors directly from the 
+  backend, ensuring data integrity and ease of entry.
+
+- TRANSACTION MONITORING: Every stock movement is logged, allowing the 
+  Manager to track inventory velocity across the warehouse."
+
+
+4. VENDOR WORKFLOW (SUPPLY TRANSPARENCY)
+----------------------------------------
+"Vendors have a dedicated, streamlined portal. Their dashboard is designed 
+for transparency:
+
+- PRODUCT REPOSITORY: Vendors can view the current list of products and 
+  monitor stock availability in real-time.
+
+- HISTORICAL REPORTS: They have immediate access to both 'Stock IN' (Purchase) 
+  and 'Stock OUT' (Issue) transaction reports, providing a clear history of 
+  order fulfillment."
+
+
+5. TECHNICAL UPDATES & CONCLUSION
+---------------------------------
+"Technically, we’ve ensured the frontend (React) and backend (Spring Boot) 
+are perfectly synchronized. We resolved sensitive mapping issues in the 
+Vendor list and stabilized the data-binding for all transactions.
+
+The entire system now feels modern, intuitive, and truly enterprise-grade. 
+This completes our walkthrough of the modernized SmartShelfX portal."
+================================================================================
