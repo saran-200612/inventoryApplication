@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const PROD_URL = 'http://localhost:9191/invent/product';
-const ID_URL = 'http://localhost:9191/invent/id-gen';
-const VENDOR_URL = 'http://localhost:9191/invent/vendor';
+const BASE = process.env.REACT_APP_API_BASE_URL;
+const PROD_URL   = `${BASE}/product`;
+const ID_URL     = `${BASE}/id-gen`;
+const VENDOR_URL = `${BASE}/vendor`;
 
 export const displayAllProducts = () => {
     return axios.get(PROD_URL, {
@@ -22,7 +23,6 @@ export const getProductById = (id) => {
     });
 };
 
-// ✅ KEEP ONLY THIS VERSION
 export const editProductPrice = (product) => {
     return axios.put(PROD_URL, product, {
         withCredentials: true
@@ -47,8 +47,8 @@ export const deleteAProduct = (id) => {
     });
 };
 
-export const editProductStock = (product) => {
-    return axios.put(`${PROD_URL}/stock`, product, {
+export const editProductStock = (product, qty, flag) => {
+    return axios.put(`${PROD_URL}/${qty}/${flag}`, product, {
         withCredentials: true
     });
 };

@@ -26,8 +26,11 @@ const ProductReport = () => {
     };
 
     const returnBack = () => {
-        if (role === 'Admin') navigate('/admin-menu');
-        else if (role === 'Manager') navigate('/manager-menu');
+        const resolvedRole = (localStorage.getItem("role") || role).toLowerCase().trim();
+        if (resolvedRole === 'admin') navigate('/admin-menu');
+        else if (resolvedRole === 'manager') navigate('/manager-menu');
+        else if (resolvedRole === 'vendor') navigate('/vendor-menu');
+        else navigate('/');
     };
 
     return (
@@ -188,7 +191,6 @@ const ProductReport = () => {
                 .badge-ok  { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.3); color: #34d399; }
                 .badge-warn { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); color: #f87171; }
 
-                /* ── ACTION BUTTONS — fully fixed ── */
                 .action-col { display: flex; flex-direction: column; gap: 5px; min-width: 116px; }
                 .action-row { display: flex; gap: 5px; }
 
@@ -234,7 +236,9 @@ const ProductReport = () => {
                         <div className="pr-header-left">
                             <div className="pr-header-icon">📦</div>
                             <div>
-                                <div className="pr-title">{role === 'Admin' ? 'Admin' : 'Manager'} Product Inventory</div>
+                                <div className="pr-title">
+                                    {role.toLowerCase() === 'admin' ? 'Admin' : role.toLowerCase() === 'vendor' ? 'Vendor' : 'Manager'} Product Inventory
+                                </div>
                                 <div className="pr-subtitle">SmartShelfX · Live Stock View</div>
                             </div>
                         </div>
@@ -309,8 +313,7 @@ const ProductReport = () => {
                                                 </td>
                                                 <td className="center">
                                                     <div className="action-col">
-                                                        {/* Row 1: Buy + Issue side by side */}
-                                                        <div className="action-row">
+                                                        {(<div className="action-row">
                                                             <Link to={`/edit-stock/${p.productId}/1`} className="btn-act btn-buy">📥 Buy</Link>
                                                             <Link
                                                                 to={p.status ? `/edit-stock/${p.productId}/2` : '#'}
@@ -319,9 +322,8 @@ const ProductReport = () => {
                                                             >
                                                                 📤 Issue
                                                             </Link>
-                                                        </div>
-                                                        {/* Row 2: Price + Delete (Admin only) */}
-                                                        {role === 'Admin' && (
+                                                        </div>)}
+                                                        {role.toLowerCase() === 'admin' && (
                                                             <div className="action-row">
                                                                 <Link to={`/edit-price/${p.productId}`} className="btn-act btn-prc">💰 Price</Link>
                                                                 <button onClick={() => removeProduct(p.productId)} className="btn-act btn-del" style={{flex:1}}>🗑 Del</button>

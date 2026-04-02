@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import LoginPage from './Components/LoginComponent/LoginPage';
 import RegisterUser from './Components/LoginComponent/RegisterUser';
@@ -20,6 +20,14 @@ import ProductPieAnalysis from './Components/AnalysisComponent/ProductPieAnalysi
 
 import TransactionReport from './Components/ProductComponent/TransactionReport';
 
+// Role guard — reads role from localStorage (set at login, persists across tabs)
+const RoleRoute = ({ element, allowedRoles }) => {
+  const role = (localStorage.getItem("role") || "").toLowerCase();
+  if (!role) return <Navigate to="/" />;
+  if (!allowedRoles.map(r => r.toLowerCase()).includes(role)) return <Navigate to="/" />;
+  return element;
+};
+
 function App() {
   return (
     <BrowserRouter>
@@ -29,25 +37,23 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterUser />} />
 
-          <Route path="/admin-menu" element={<AdminMenu />} />
-          <Route path="/manager-menu" element={<ManagerMenu />} />
-          <Route path="/vendor-menu" element={<VendorMenu />} />
+          <Route path="/admin-menu" element={<RoleRoute element={<AdminMenu />} allowedRoles={["admin"]} />} />
+          <Route path="/manager-menu" element={<RoleRoute element={<ManagerMenu />} allowedRoles={["manager"]} />} />
+          <Route path="/vendor-menu" element={<RoleRoute element={<VendorMenu />} allowedRoles={["vendor"]} />} />
 
-          {/* ✅ FIXED: was /stock-edit/:pid/:no — now matches ProductReport links */}
-          <Route path="/edit-stock/:pid/:no" element={<ProductStockEdit />} />
+          <Route path="/edit-stock/:pid/:no" element={<RoleRoute element={<ProductStockEdit />} allowedRoles={["admin","manager","vendor"]} />} />
 
-          <Route path="/sku-entry" element={<SKUEntry />} />
-          <Route path="/sku-repo" element={<SKUReport />} />
-          <Route path="/update-sku/:skuno" element={<SKUEdit />} />
+          <Route path="/sku-entry" element={<RoleRoute element={<SKUEntry />} allowedRoles={["admin"]} />} />
+          <Route path="/sku-repo" element={<RoleRoute element={<SKUReport />} allowedRoles={["admin","manager"]} />} />
+          <Route path="/update-sku/:skuno" element={<RoleRoute element={<SKUEdit />} allowedRoles={["admin"]} />} />
 
-          <Route path="/product-entry" element={<ProductEntry />} />
-          <Route path="/product-repo" element={<ProductReport />} />
-          <Route path="/edit-price/:pid" element={<ProductPriceEdit />} />
+          <Route path="/product-entry" element={<RoleRoute element={<ProductEntry />} allowedRoles={["admin"]} />} />
+          <Route path="/product-repo" element={<RoleRoute element={<ProductReport />} allowedRoles={["admin","manager","vendor"]} />} />
+          <Route path="/edit-price/:pid" element={<RoleRoute element={<ProductPriceEdit />} allowedRoles={["admin"]} />} />
 
-          {/* ✅ FIXED: param name is :type to match param.pid usage in TransactionReport */}
-          <Route path="/transaction-report/:pid" element={<TransactionReport />} />
+          <Route path="/transaction-report/:pid" element={<RoleRoute element={<TransactionReport />} allowedRoles={["admin","manager","vendor"]} />} />
 
-          <Route path="/product-pie" element={<ProductPieAnalysis />} />
+          <Route path="/product-pie" element={<RoleRoute element={<ProductPieAnalysis />} allowedRoles={["admin","manager"]} />} />
 
         </Routes>
       </div>

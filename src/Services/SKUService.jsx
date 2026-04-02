@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const SKU_URL = "http://localhost:9191/invent/sku";
-const CAT_URL = "http://localhost:9191/invent/sku-cat";
+const BASE    = process.env.REACT_APP_API_BASE_URL;
+const SKU_URL = `${BASE}/sku`;
+const CAT_URL = `${BASE}/sku-cat`;
 
 export const saveSKU = (sku) => {
     return axios.post(SKU_URL, sku, {

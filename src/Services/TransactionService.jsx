@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const STOCK_URL = "http://localhost:9191/invent/stock";
-const TRANS_URL = "http://localhost:9191/invent/trans";
-const ID_URL = "http://localhost:9191/invent/trans-id";
-const ANA_URL = "http://localhost:9191/invent/analysis";
+const BASE      = process.env.REACT_APP_API_BASE_URL;
+const STOCK_URL = `${BASE}/stock`;
+const TRANS_URL = `${BASE}/trans`;
+const ID_URL    = `${BASE}/trans-id`;
+const ANA_URL   = `${BASE}/analysis`;
 
 export const saveTransaction = (transaction) => {
     return axios.post(STOCK_URL, transaction, {
@@ -23,9 +24,9 @@ export const removeTransactionById = (id) => {
     });
 }
 
-// ✅ FIXED (removed flag)
-export const transactionIdGenerate = () => {
-    return axios.get(`${ID_URL}`, {
+// flag: 1 = IN, 2 = OUT
+export const transactionIdGenerate = (flag) => {
+    return axios.get(`${ID_URL}/${flag}`, {
         withCredentials: true
     });
 }
@@ -48,9 +49,8 @@ export const getDemandByDate = (date) => {
     });
 }
 
-// ✅ ADDED (for pie chart)
 export const getProductWiseTotalSale = () => {
-    return axios.get(`${ANA_URL}/product-wise-total-sale`, {
+    return axios.get(`${ANA_URL}`, {
         withCredentials: true
     });
 }

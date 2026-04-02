@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const LOGIN_URL = 'http://localhost:9191/invent/login';
-const ROLE_URL = 'http://localhost:9191/invent/role';
-const LOGOUT_URL = 'http://localhost:9191/invent/logout';
-const USR_URL = 'http://localhost:9191/invent/user';
+const BASE       = process.env.REACT_APP_API_BASE_URL;
+const LOGIN_URL  = `${BASE}/login`;
+const ROLE_URL   = `${BASE}/role`;
+const LOGOUT_URL = `${BASE}/logout`;
+const USR_URL    = `${BASE}/user`;
 
 export const registerNewUser = (user) => {
     return axios.post(LOGIN_URL, user, {
